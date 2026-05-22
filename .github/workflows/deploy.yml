@@ -1,0 +1,36 @@
+name: Deploy landing (VPS)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Push to VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            set -e
+            cd /opt/sawafit-landing
+            git fetch --prune
+            git reset --hard origin/main
+
+      - name: Production smoke
+        run: |
+          curl -fsS -o /dev/null -w "HTTP %{http_code} · %{size_download}b · %{time_total}s\n" \
+            https://sawafit.app/
+          curl -fsS -o /dev/null -w "HTTP %{http_code} · %{size_download}b · %{time_total}s\n" \
+            https://www.sawafit.app/
