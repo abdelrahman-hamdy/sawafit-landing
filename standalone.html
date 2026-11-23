@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سوا فيت — ابدأ رحلتك نحو حياة أصحّ</title>
+  <meta name="description" content="تتبّع سعراتك، سجّل وجباتك وتمارينك، وابنِ عادات صحية مستدامة — كل هذا مجاناً" />
+  <meta property="og:title"       content="سوا فيت — ابدأ رحلتك نحو حياة أصحّ" />
+  <meta property="og:description" content="تتبّع سعراتك، سجّل وجباتك وتمارينك، وابنِ عادات صحية مستدامة" />
+  <meta property="og:type"        content="website" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <!-- Tajawal Arabic Font (Bunny Fonts CDN — works globally incl. Middle East) -->
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link href="https://fonts.bunny.net/css?family=tajawal:400,500,700,800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS v3 Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#0DC07A', dark: '#0A9E65', light: '#A7F3D0', subtle: '#F0FDF8' },
+            accent:  { DEFAULT: '#FF6B35', light: '#FFF3EE' },
+            bg:      '#FFFFFF',
+            surface: '#F9FAFB',
+            border:  '#E8F5EE',
+            text: { primary: '#0F1B13', secondary: '#4B6058', muted: '#9BB0A7' },
+          },
+          fontFamily: {
+            sans:   ['Tajawal', 'system-ui', 'sans-serif'],
+            arabic: ['Tajawal', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Base ──────────────────────────────── */
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Tajawal', system-ui, sans-serif;
+      direction: rtl;
+      background: #fff;
+      color: #0F1B13;
+      -webkit-font-smoothing: antialiased;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* ── Keyframes ─────────────────────────── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes blob-move {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(20px, -30px) scale(1.05); }
+      66%       { transform: translate(-15px, 20px) scale(0.95); }
+    }
+
+    /* ── Scroll Reveal ─────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.10s; }
+    .reveal-delay-2 { transition-delay: 0.20s; }
+    .reveal-delay-3 { transition-delay: 0.30s; }
+    .reveal-delay-4 { transition-delay: 0.40s; }
+    .reveal-delay-5 { transition-delay: 0.50s; }
+
+    /* ── Gradient Text ─────────────────────── */
+    .gradient-text {
+      background: linear-gradient(135deg, #0DC07A 0%, #00a86b 60%, #00C9A7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Float ─────────────────────────────── */
+    .float { animation: float 4s ease-in-out infinite; }
+
+    /* ── Navbar ────────────────────────────── */
+    .nav-base {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .nav-scrolled {
+      background: rgba(255,255,255,0.97);
+      border-bottom-color: #E8F5EE;
+      box-shadow: 0 1px 20px rgba(13,192,122,0.08);
+    }
+    .nav-link { color: #4B6058; font-weight: 600; font-size: 0.9375rem; transition: color 0.2s; text-decoration: none; }
+    .nav-link:hover { color: #0DC07A; }
+    .hamburger-bar {
+      display: block; width: 22px; height: 2.5px; background: #0F1B13;
+      border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center;
+    }
+
+    /* ── Buttons ───────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: #0DC07A; color: white; font-weight: 700; font-size: 0.9375rem;
+      padding: 0.65rem 1.5rem; border-radius: 12px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(13,192,122,0.32);
+    }
+    .btn-primary:hover { background: #0A9E65; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(13,192,122,0.42); }
+
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 0.75rem; background: #0F1B13; color: white;
+      padding: 0.75rem 1.35rem; border-radius: 14px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .store-btn:hover { background: #1c3022; transform: translateY(-1px); }
+
+    /* ── Badge ─────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; background: #F0FDF8;
+      border: 1.5px solid #A7F3D0; color: #0A9E65;
+      font-size: 0.8125rem; font-weight: 700; padding: 0.35rem 0.875rem; border-radius: 999px;
+    }
+
+    /* ── Hero Blobs ────────────────────────── */
+    .hero-blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; will-change: transform; }
+    .blob-1 {
+      width: 520px; height: 520px; top: -120px; right: -80px;
+      background: radial-gradient(circle, rgba(13,192,122,0.18) 0%, transparent 70%);
+      animation: blob-move 12s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 420px; height: 420px; bottom: -60px; left: -60px;
+      background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+      animation: blob-move 16s ease-in-out infinite reverse;
+    }
+
+    /* ── iPhone Mockup ─────────────────────── */
+    .iphone-mockup {
+      width: 280px; height: 580px; border-radius: 46px; border: 10px solid #1C1C1E; background: #111;
+      box-shadow: 0 0 0 2px #3A3A3C, inset 0 0 0 2px #000, 0 40px 80px rgba(0,0,0,0.28);
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .iphone-mockup::before {
+      content: ''; width: 120px; height: 34px; background: #000; border-radius: 20px;
+      position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 10;
+    }
+    .iphone-screen { width: 100%; height: 100%; overflow: hidden; background: #F9FAFB; }
+
+    /* ── Floating Stat Cards ───────────────── */
+    .floating-card {
+      position: absolute; background: white; border-radius: 16px; padding: 0.75rem 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+      white-space: nowrap; z-index: 10;
+    }
+    .stat-card-1 { top: 10%; right: -8%; animation: float 4s ease-in-out infinite 0.5s; }
+    .stat-card-2 { bottom: 15%; left: -8%; animation: float 4s ease-in-out infinite 1.2s; }
+
+    /* ── App Screen ────────────────────────── */
+    .app-screen {
+      padding: 58px 14px 16px; height: 100%; display: flex; flex-direction: column; gap: 10px;
+      font-family: 'Tajawal', system-ui, sans-serif; direction: rtl; background: #F9FAFB; font-size: 11px;
+    }
+    .app-card { background: white; border-radius: 14px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .app-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+    .mini-ring-wrap { display: flex; justify-content: center; align-items: center; position: relative; margin: 4px 0; }
+    .mini-ring-wrap svg { transform: rotate(-90deg); }
+    .mini-ring-label { position: absolute; text-align: center; line-height: 1.3; }
+    .mini-bar-track { height: 5px; background: #E8F5EE; border-radius: 99px; overflow: hidden; margin-top: 4px; }
+    .mini-bar-fill { height: 100%; border-radius: 99px; }
+    .meal-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #F0FDF8; color: #0F1B13; }
+    .meal-row:last-child { border-bottom: none; }
+    .workout-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #F0FDF8; }
+    .workout-row:last-child { border-bottom: none; }
+    .workout-icon { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .habit-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #F0FDF8; }
+    .habit-row:last-child { border-bottom: none; }
+    .habit-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #0DC07A; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 9px; }
+    .habit-check.done { background: #0DC07A; color: white; }
+    .mini-chart { display: flex; align-items: flex-end; gap: 4px; height: 48px; padding: 0 2px; }
+    .chart-bar { flex: 1; border-radius: 4px 4px 0 0; background: #E8F5EE; }
+    .chart-bar.active { background: #0DC07A; }
+
+    /* ── Feature Cards ─────────────────────── */
+    .feature-card {
+      background: white; border: 1.5px solid #E8F5EE; border-radius: 20px; padding: 1.75rem;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease; transform-style: preserve-3d;
+    }
+    .feature-card:hover { box-shadow: 0 12px 40px rgba(13,192,122,0.12); border-color: #A7F3D0; }
+    .feature-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.125rem; }
+
+    /* ── Carousel ──────────────────────────── */
+    .carousel-track {
+      display: flex; gap: 1.5rem; overflow-x: auto; scroll-behavior: smooth;
+      scrollbar-width: none; -ms-overflow-style: none; padding: 1.5rem 3rem; cursor: grab; user-select: none;
+      direction: ltr; /* force LTR so scrollLeft is always 0→max left-to-right */
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-track.grabbing { cursor: grabbing; }
+    .carousel-slide { flex-shrink: 0; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 999px; background: #E8F5EE; cursor: pointer; transition: all 0.3s ease; }
+    .carousel-dot.active { width: 24px; background: #0DC07A !important; }
+
+    /* ── Steps ─────────────────────────────── */
+    .step-number {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, #0DC07A, #0A9E65); color: white;
+      font-weight: 800; font-size: 1.375rem; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(13,192,122,0.35); flex-shrink: 0;
+    }
+
+    /* ── Testimonials ──────────────────────── */
+    .testimonial-card {
+      background: white; border: 1.5px solid #E8F5EE; border-radius: 20px; padding: 1.75rem;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .testimonial-card:hover { box-shadow: 0 8px 32px rgba(13,192,122,0.1); border-color: #A7F3D0; }
+    .avatar-circle {
+      width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #0DC07A, #0A9E65);
+      display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.125rem; flex-shrink: 0;
+    }
+
+    /* ── Stats ─────────────────────────────── */
+    .stat-number { font-size: 2.5rem; font-weight: 800; color: #0DC07A; line-height: 1; display: block; }
+    .stat-label  { color: #4B6058; font-size: 0.9375rem; margin-top: 0.4rem; }
+
+    /* ── Section Headings ──────────────────── */
+    .section-title { font-size: clamp(1.875rem, 4vw, 2.625rem); font-weight: 700; color: #0F1B13; text-align: center; line-height: 1.3; }
+    .section-subtitle { font-size: 1.0625rem; color: #4B6058; text-align: center; max-width: 38rem; margin: 0.75rem auto 0; line-height: 1.8; }
+
+    /* ── CTA ───────────────────────────────── */
+    .cta-section {
+      background: linear-gradient(135deg, #0A1A10 0%, #0F2B1C 50%, #0A1A10 100%);
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 25% 50%, rgba(13,192,122,0.16) 0%, transparent 55%),
+                  radial-gradient(ellipse at 75% 50%, rgba(255,107,53,0.08) 0%, transparent 55%);
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.6rem; color: rgba(255,255,255,0.75); font-size: 0.9375rem; }
+    .trust-check { width: 22px; height: 22px; border-radius: 50%; background: rgba(13,192,122,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* ── Footer ────────────────────────────── */
+    .footer-link { color: #9BB0A7; text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-link:hover { color: #0DC07A; }
+    .social-btn { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; transition: background 0.2s; color: #9BB0A7; }
+    .social-btn:hover { background: rgba(13,192,122,0.18); color: #0DC07A; }
+
+    /* ── Mobile ────────────────────────────── */
+    @media (max-width: 768px) {
+      .stat-card-1, .stat-card-2 { display: none; }
+      .iphone-mockup { width: 240px; height: 496px; }
+      .blob-1, .blob-2 { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     1 · NAVBAR
+════════════════════════════════════════════════════════ -->
+<nav id="navbar" class="nav-base fixed top-0 inset-x-0 z-50">
+  <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+
+    <a href="/" class="flex items-center gap-2.5 no-underline">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm flex-shrink-0">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2C6.5 2 4 4.5 4 8c0 5.5 5.5 10.5 6 10.8.5-.3 6-5.3 6-10.8 0-3.5-2.5-6-6-6z" fill="white"/>
+          <path d="M10 6v8M8 9l2-2.5L12 9" stroke="#0DC07A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="text-xl font-bold text-text-primary">سوا فيت</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 list-none m-0 p-0">
+      <li><a href="#features"     class="nav-link">المميّزات</a></li>
+      <li><a href="#screenshots"  class="nav-link">الواجهة</a></li>
+      <li><a href="#how-it-works" class="nav-link">كيف يعمل</a></li>
+      <li><a href="#testimonials" class="nav-link">آراء المستخدمين</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="#download" class="hidden md:inline-flex btn-primary text-sm">حمّل التطبيق</a>
+      <button id="menu-toggle"
+              class="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 rounded-xl bg-surface"
+              aria-label="فتح القائمة" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden overflow-hidden" style="max-height:0; transition: max-height 0.35s ease;">
+    <div class="bg-white border-t border-border px-5 py-5 flex flex-col gap-1">
+      <a href="#features"     class="block py-2.5 px-3 rounded-xl text-text-secondary font-semibold hover:bg-primary-subtle hover:text-primary transition-colors">المميّزات</a>
+      <a href="#screenshots"  class="block py-2.5 px-3 rounded-xl text-text-secondary font-semibold hover:bg-primary-subtle hover:text-primary transition-colors">الواجهة</a>
+      <a href="#how-it-works" class="block py-2.5 px-3 rounded-xl text-text-secondary font-semibold hover:bg-primary-subtle hover:text-primary transition-colors">كيف يعمل</a>
+      <a href="#testimonials" class="block py-2.5 px-3 rounded-xl text-text-secondary font-semibold hover:bg-primary-subtle hover:text-primary transition-colors">آراء المستخدمين</a>
+      <div class="pt-3 border-t border-border mt-2">
+        <a href="#download" class="btn-primary block text-center">حمّل التطبيق مجاناً</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════
+     2 · HERO
+════════════════════════════════════════════════════════ -->
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-16 bg-white">
+  <div class="hero-blob blob-1" aria-hidden="true"></div>
+  <div class="hero-blob blob-2" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-5 py-20 w-full relative z-10">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+      <div>
+        <div class="badge reveal">
+          <span class="inline-block w-2 h-2 rounded-full bg-primary ml-1.5"></span>
+          التطبيق الصحي رقم ١ في المنطقة
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl font-extrabold text-text-primary leading-tight mt-6 reveal reveal-delay-1">
+          ابدأ رحلتك<br/>
+          نحو حياة أصحّ<br/>
+          <span class="gradient-text">مع سوا فيت</span>
+        </h1>
+
+        <p class="text-text-secondary text-lg leading-relaxed mt-6 max-w-md reveal reveal-delay-2">
+          تتبّع سعراتك، سجّل وجباتك وتمارينك، وابنِ عادات صحية مستدامة — كل هذا مجاناً
+        </p>
+
+        <div class="flex flex-wrap gap-4 mt-8 reveal reveal-delay-3">
+          <a href="#" class="store-btn" aria-label="حمّل من App Store">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            <div>
+              <p class="text-xs leading-none mb-0.5" style="color:rgba(255,255,255,0.6);">حمّل من</p>
+              <p class="font-bold text-white text-sm leading-none">App Store</p>
+            </div>
+          </a>
+          <a href="#" class="store-btn" aria-label="حمّل من Google Play">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <path d="M3.5 22.5 14 12 3.5 1.5c-.3.2-.5.5-.5.9v19.2c0 .4.2.7.5.9z" fill="#4285F4"/>
+              <path d="M21 12 17.5 10 14 12l3.5 2L21 12z" fill="#FBBC04"/>
+              <path d="M14 12 3.5 1.5l11.2 6.5L14 12z" fill="#EA4335"/>
+              <path d="M14 12l.7 4L3.5 22.5 14 12z" fill="#34A853"/>
+            </svg>
+            <div>
+              <p class="text-xs leading-none mb-0.5" style="color:rgba(255,255,255,0.6);">حمّل من</p>
+              <p class="font-bold text-white text-sm leading-none">Google Play</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 mt-8 reveal reveal-delay-4">
+          <div class="flex items-center gap-2">
+            <div class="flex" style="margin-left:-8px;">
+              <div class="w-8 h-8 rounded-full bg-primary-light border-2 border-white flex items-center justify-center text-xs font-bold text-primary-dark" style="margin-left:-8px;">أ</div>
+              <div class="w-8 h-8 rounded-full bg-accent-light border-2 border-white flex items-center justify-center text-xs font-bold text-accent" style="margin-left:-8px;">م</div>
+              <div class="w-8 h-8 rounded-full bg-primary-subtle border-2 border-white flex items-center justify-center text-xs font-bold text-primary-dark" style="margin-left:-8px;">ف</div>
+              <div class="w-8 h-8 rounded-full bg-surface border-2 border-white flex items-center justify-center text-xs font-bold text-text-muted">+</div>
+            </div>
+            <span class="text-sm text-text-secondary font-semibold">+٥٠٠ ألف مستخدم</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            <span class="font-bold text-text-primary text-sm">٤.٩</span>
+            <span class="text-text-muted text-sm">تقييم</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative flex justify-center lg:justify-end items-center">
+        <div class="floating-card stat-card-1 reveal">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#FFF7ED;">🔥</div>
+          <div>
+            <p class="text-xs text-text-muted">السعرات اليوم</p>
+            <p class="font-bold text-text-primary text-sm">١٢٠٠ سعرة</p>
+          </div>
+        </div>
+
+        <div class="iphone-mockup float">
+          <div class="iphone-screen">
+            <div class="app-screen">
+              <div class="app-header-bar">
+                <div>
+                  <p style="font-size:9px;color:#9BB0A7;">السبت، ١ فبراير</p>
+                  <p style="font-size:13px;font-weight:700;color:#0F1B13;">مرحباً، أحمد 👋</p>
+                </div>
+                <div style="width:32px;height:32px;border-radius:50%;background:#A7F3D0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0A9E65;">أ</div>
+              </div>
+              <div class="app-card">
+                <p style="font-weight:700;color:#0F1B13;margin-bottom:8px;font-size:11px;">السعرات اليومية</p>
+                <div class="mini-ring-wrap">
+                  <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#E8F5EE" stroke-width="9"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#0DC07A" stroke-width="9" stroke-dasharray="178 252" stroke-dashoffset="63" stroke-linecap="round"/>
+                  </svg>
+                  <div class="mini-ring-label">
+                    <p style="font-size:16px;font-weight:800;color:#0F1B13;">١٢٠٠</p>
+                    <p style="font-size:8px;color:#9BB0A7;">من ١٨٠٠</p>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:6px;">
+                  <div style="flex:1;"><div style="display:flex;justify-content:space-between;"><span style="font-size:9px;color:#9BB0A7;">بروتين</span><span style="font-size:9px;font-weight:700;color:#0F1B13;">٦٥غ</span></div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:65%;background:#0DC07A;"></div></div></div>
+                  <div style="flex:1;"><div style="display:flex;justify-content:space-between;"><span style="font-size:9px;color:#9BB0A7;">كارب</span><span style="font-size:9px;font-weight:700;color:#0F1B13;">١٤٠غ</span></div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:70%;background:#FF6B35;"></div></div></div>
+                  <div style="flex:1;"><div style="display:flex;justify-content:space-between;"><span style="font-size:9px;color:#9BB0A7;">دهون</span><span style="font-size:9px;font-weight:700;color:#0F1B13;">٤٢غ</span></div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:55%;background:#FBBF24;"></div></div></div>
+                </div>
+              </div>
+              <div class="app-card" style="flex:1;">
+                <p style="font-size:11px;font-weight:700;color:#0F1B13;margin-bottom:6px;">وجبات اليوم</p>
+                <div class="meal-row"><div><p style="font-weight:700;color:#0F1B13;">الإفطار</p><p style="color:#9BB0A7;font-size:9px;">بيض + شوفان</p></div><span style="color:#0DC07A;font-weight:700;">٤٢٠</span></div>
+                <div class="meal-row"><div><p style="font-weight:700;color:#0F1B13;">الغداء</p><p style="color:#9BB0A7;font-size:9px;">صدر دجاج + أرز</p></div><span style="color:#0DC07A;font-weight:700;">٥٨٠</span></div>
+                <div class="meal-row"><div><p style="font-weight:700;color:#0F1B13;">وجبة خفيفة</p><p style="color:#9BB0A7;font-size:9px;">موزة + مكسرات</p></div><span style="color:#0DC07A;font-weight:700;">٢٠٠</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card stat-card-2 reveal">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#F0FDF8;">💪</div>
+          <div>
+            <p class="text-xs text-text-muted">تمارين اليوم</p>
+            <p class="font-bold text-text-primary text-sm">٣٢٠ سعرة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     3 · SOCIAL PROOF BAR
+════════════════════════════════════════════════════════ -->
+<section id="stats" class="bg-primary-subtle border-y border-primary-light py-14">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="reveal">
+        <span class="stat-number" data-count="500000" data-suffix="+">٠</span>
+        <p class="stat-label">مستخدم نشط</p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <span class="stat-number" style="color:#FBBF24;">٤.٩ ⭐</span>
+        <p class="stat-label">تقييم التطبيق</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <span class="stat-number" data-count="18" data-suffix="+">٠</span>
+        <p class="stat-label">دولة حول العالم</p>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <span class="stat-number" data-count="20000000" data-suffix="+">٠</span>
+        <p class="stat-label">وجبة مسجّلة</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     4 · FEATURES GRID
+════════════════════════════════════════════════════════ -->
+<section id="features" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-5">
+    <p class="section-title reveal">كل ما تحتاجه في مكان واحد</p>
+    <p class="section-subtitle reveal reveal-delay-1">أدوات متكاملة تُساعدك على بناء نمط حياة صحي مستدام بخطوات بسيطة وممتعة</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+
+      <div class="feature-card reveal">
+        <div class="feature-icon bg-primary-subtle">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.5 2 6 4.5 6 8c0 5.5 5.5 11 6 11.3.5-.3 6-5.8 6-11.3 0-3.5-2.5-6-6-6z" fill="#0DC07A" opacity="0.3"/><path d="M12 2C8.5 2 6 4.5 6 8c0 5.5 5.5 11 6 11.3.5-.3 6-5.8 6-11.3 0-3.5-2.5-6-6-6z" stroke="#0DC07A" stroke-width="1.5" fill="none"/><path d="M12 7v4M10 9l2-2 2 2" stroke="#0DC07A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="font-bold text-text-primary text-lg mb-2">تتبّع السعرات</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">راقب سعراتك اليومية بدقة مع قاعدة بيانات تضمّ أكثر من مليوني طعام من المطبخ العربي والعالمي.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon" style="background:#FFF7ED;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="3" stroke="#FF6B35" stroke-width="1.5"/><path d="M8 8h8M8 12h5" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#FF6B35" opacity="0.3"/><path d="M15 16l.75.75L17.5 15" stroke="#FF6B35" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="font-bold text-text-primary text-lg mb-2">يوميّة الطعام</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">سجّل وجبات الإفطار والغداء والعشاء وكل وجبة خفيفة بسهولة تامة، مع عرض تفصيلي للمغذيات.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon" style="background:#EFF6FF;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="4" cy="12" r="2" fill="#3B82F6" opacity="0.4"/><circle cx="20" cy="12" r="2" fill="#3B82F6" opacity="0.4"/><rect x="6" y="10" width="4" height="4" rx="1.5" fill="#3B82F6"/><rect x="14" y="10" width="4" height="4" rx="1.5" fill="#3B82F6"/><path d="M10 12h4" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="font-bold text-text-primary text-lg mb-2">تسجيل التمارين</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">سجّل تمارينك اليومية وتتبّع السعرات المحروقة مع مكتبة تمارين شاملة تغطي كل أنواع الرياضة.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon" style="background:#F5F3FF;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="3" stroke="#8B5CF6" stroke-width="1.5"/><path d="M3 9h18" stroke="#8B5CF6" stroke-width="1.5"/><path d="M8 2v4M16 2v4" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round"/><circle cx="8.5" cy="14" r="1.5" fill="#8B5CF6" opacity="0.5"/><circle cx="12" cy="14" r="1.5" fill="#8B5CF6" opacity="0.5"/><circle cx="15.5" cy="14" r="1.5" fill="#8B5CF6" opacity="0.5"/></svg>
+        </div>
+        <h3 class="font-bold text-text-primary text-lg mb-2">خطط الغذاء</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">خطط غذائية مخصّصة بناءً على هدفك سواء كان الخسارة أو الكسب أو الصيانة، مع وصفات يومية متجددة.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon bg-primary-subtle">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21C7 17 3 13.5 3 9c0-3.3 2.7-6 6-6 1.5 0 2.9.6 4 1.6C14.1 3.6 15.5 3 17 3c3.3 0 6 2.7 6 6 0 4.5-4 8-11 12z" stroke="#0DC07A" stroke-width="1.5" fill="#0DC07A" opacity="0.15"/><path d="M9 12l2 2 4-4" stroke="#0DC07A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="font-bold text-text-primary text-lg mb-2">عادات صحية</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">تابع عاداتك الصحية اليومية من شرب الماء والنوم والتأمل، وابنِ سلاسل متتابعة لتحفيزك على الاستمرار.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon bg-accent-light">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 18L9 12l4 4 3-5 4 6" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 6h16M4 10h10" stroke="#FF6B35" stroke-width="1" stroke-linecap="round" opacity="0.4"/></svg>
+        </div>
+        <h3 class="font-bold text-text-primary text-lg mb-2">تحليل التقدّم</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">رسوم بيانية وإحصاءات أسبوعية وشهرية تُظهر تقدّمك نحو أهدافك وتُساعدك على تعديل مسارك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     5 · SCREENSHOTS CAROUSEL
+════════════════════════════════════════════════════════ -->
+<section id="screenshots" class="py-24 bg-surface overflow-hidden">
+  <div class="max-w-7xl mx-auto px-5">
+    <p class="section-title reveal">تجربة تستمتع بها</p>
+    <p class="section-subtitle reveal reveal-delay-1">واجهة عربية سلسة، تصميم بديهي، وتجربة مستخدم مصمَّمة للسوق العربي</p>
+  </div>
+
+  <div class="carousel-track mt-12" role="region" aria-label="لقطات شاشة التطبيق">
+
+    <!-- Screen 1: Dashboard -->
+    <div class="carousel-slide"><div class="iphone-mockup"><div class="iphone-screen">
+      <div class="app-screen">
+        <div class="app-header-bar"><div><p style="font-size:9px;color:#9BB0A7;">الثلاثاء</p><p style="font-size:13px;font-weight:700;color:#0F1B13;">لوحة التحكم</p></div><div style="background:#F0FDF8;border-radius:10px;padding:4px 8px;font-size:10px;color:#0A9E65;font-weight:700;">اليوم</div></div>
+        <div class="app-card"><div class="mini-ring-wrap"><svg width="90" height="90" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#E8F5EE" stroke-width="10"/><circle cx="50" cy="50" r="40" fill="none" stroke="#0DC07A" stroke-width="10" stroke-dasharray="165 252" stroke-dashoffset="63" stroke-linecap="round"/></svg><div class="mini-ring-label"><p style="font-size:15px;font-weight:800;color:#0F1B13;">١٤٨٠</p><p style="font-size:8px;color:#9BB0A7;">من ١٨٠٠</p></div></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;"><div class="app-card" style="text-align:center;padding:8px;"><p style="font-size:15px;font-weight:800;color:#0DC07A;">٣٢٠</p><p style="font-size:8px;color:#9BB0A7;">محروق</p></div><div class="app-card" style="text-align:center;padding:8px;"><p style="font-size:15px;font-weight:800;color:#FF6B35;">٩٢غ</p><p style="font-size:8px;color:#9BB0A7;">بروتين</p></div><div class="app-card" style="text-align:center;padding:8px;"><p style="font-size:15px;font-weight:800;color:#3B82F6;">٨</p><p style="font-size:8px;color:#9BB0A7;">أكواب</p></div></div>
+        <div class="app-card" style="flex:1;"><p style="font-size:10px;font-weight:700;color:#0F1B13;margin-bottom:6px;">آخر الوجبات</p><div class="meal-row"><span style="color:#0F1B13;font-weight:600;">الإفطار</span><span style="color:#0DC07A;font-weight:700;">٤٣٥ سع</span></div><div class="meal-row"><span style="color:#0F1B13;font-weight:600;">الغداء</span><span style="color:#0DC07A;font-weight:700;">٦٥٠ سع</span></div><div class="meal-row"><span style="color:#0F1B13;font-weight:600;">العشاء</span><span style="color:#9BB0A7;font-weight:600;">لم يُضَف</span></div></div>
+      </div>
+    </div></div></div>
+
+    <!-- Screen 2: Food Log -->
+    <div class="carousel-slide"><div class="iphone-mockup"><div class="iphone-screen">
+      <div class="app-screen">
+        <div class="app-header-bar"><p style="font-size:13px;font-weight:700;color:#0F1B13;">يوميّة الطعام</p><div style="width:28px;height:28px;background:#0DC07A;border-radius:9px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;font-weight:700;">+</div></div>
+        <div class="app-card" style="background:linear-gradient(135deg,#0DC07A,#0A9E65);color:white;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><p style="font-size:9px;opacity:.8;">مجموع اليوم</p><p style="font-size:18px;font-weight:800;">١٢٨٠</p></div><div style="text-align:center;"><p style="font-size:9px;opacity:.8;">متبقّي</p><p style="font-size:18px;font-weight:800;">٥٢٠</p></div><div style="text-align:center;"><p style="font-size:9px;opacity:.8;">الهدف</p><p style="font-size:18px;font-weight:800;">١٨٠٠</p></div></div><div style="height:4px;background:rgba(255,255,255,.3);border-radius:99px;margin-top:8px;overflow:hidden;"><div style="height:100%;width:71%;background:white;border-radius:99px;"></div></div></div>
+        <div class="app-card" style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><p style="font-size:11px;font-weight:700;color:#0F1B13;">🌅 الإفطار</p><p style="font-size:10px;color:#9BB0A7;">٤٣٥ سع</p></div><div class="meal-row"><span>بيض مسلوق × ٢</span><span style="color:#0DC07A;">١٤٠</span></div><div class="meal-row"><span>شوفان بالحليب</span><span style="color:#0DC07A;">٢٩٥</span></div></div>
+        <div class="app-card" style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><p style="font-size:11px;font-weight:700;color:#0F1B13;">☀️ الغداء</p><p style="font-size:10px;color:#9BB0A7;">٦٤٥ سع</p></div><div class="meal-row"><span>صدر دجاج مشوي</span><span style="color:#0DC07A;">٣٦٥</span></div><div class="meal-row"><span>أرز بسمتي</span><span style="color:#0DC07A;">٢٨٠</span></div></div>
+        <div class="app-card" style="background:#F9FAFB;border:1.5px dashed #E8F5EE;text-align:center;padding:14px;"><p style="font-size:10px;color:#9BB0A7;">+ أضف وجبة العشاء</p></div>
+      </div>
+    </div></div></div>
+
+    <!-- Screen 3: Exercise -->
+    <div class="carousel-slide"><div class="iphone-mockup"><div class="iphone-screen">
+      <div class="app-screen">
+        <div class="app-header-bar"><p style="font-size:13px;font-weight:700;color:#0F1B13;">التمارين</p><div style="background:#EEF2FF;border-radius:10px;padding:4px 10px;font-size:9px;color:#6366F1;font-weight:700;">هذا الأسبوع</div></div>
+        <div class="app-card" style="background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;text-align:center;"><p style="font-size:9px;opacity:.6;margin-bottom:2px;">إجمالي المحروق</p><p style="font-size:26px;font-weight:800;">٤٨٠ <span style="font-size:14px;opacity:.8;">سعرة</span></p><div style="display:flex;justify-content:center;gap:16px;margin-top:6px;"><span style="font-size:9px;opacity:.7;">⏱ ٥٥ دقيقة</span><span style="font-size:9px;opacity:.7;">🔥 مرتفع</span></div></div>
+        <div class="app-card" style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0F1B13;margin-bottom:6px;">تمارين اليوم</p><div class="workout-row"><div class="workout-icon" style="background:#FEF3C7;">🏃</div><div style="flex:1;"><p style="font-weight:700;color:#0F1B13;font-size:10px;">ركض</p><p style="color:#9BB0A7;font-size:9px;">٣٠ دقيقة</p></div><span style="color:#0DC07A;font-weight:700;font-size:10px;">٢٨٠</span></div><div class="workout-row"><div class="workout-icon" style="background:#EEF2FF;">🏋️</div><div style="flex:1;"><p style="font-weight:700;color:#0F1B13;font-size:10px;">رفع أثقال</p><p style="color:#9BB0A7;font-size:9px;">٢٥ دقيقة</p></div><span style="color:#0DC07A;font-weight:700;font-size:10px;">٢٠٠</span></div><div class="workout-row"><div class="workout-icon" style="background:#F0FDF8;">🧘</div><div style="flex:1;"><p style="font-weight:700;color:#0F1B13;font-size:10px;">يوغا</p><p style="color:#9BB0A7;font-size:9px;">١٥ دقيقة</p></div><span style="color:#0DC07A;font-weight:700;font-size:10px;">٦٠</span></div></div>
+        <div class="app-card"><p style="font-size:10px;font-weight:700;color:#0F1B13;margin-bottom:6px;">نشاط الأسبوع</p><div class="mini-chart"><div class="chart-bar" style="height:40%;"></div><div class="chart-bar" style="height:70%;"></div><div class="chart-bar active" style="height:60%;"></div><div class="chart-bar" style="height:90%;"></div><div class="chart-bar active" style="height:100%;"></div><div class="chart-bar" style="height:50%;"></div><div class="chart-bar active" style="height:80%;"></div></div></div>
+      </div>
+    </div></div></div>
+
+    <!-- Screen 4: Progress -->
+    <div class="carousel-slide"><div class="iphone-mockup"><div class="iphone-screen">
+      <div class="app-screen">
+        <div class="app-header-bar"><p style="font-size:13px;font-weight:700;color:#0F1B13;">التقدّم</p><div style="background:#F0FDF8;border-radius:10px;padding:4px 10px;font-size:9px;color:#0A9E65;font-weight:700;">٣ أشهر</div></div>
+        <div class="app-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div><p style="font-size:9px;color:#9BB0A7;">الوزن الحالي</p><p style="font-size:22px;font-weight:800;color:#0F1B13;">٧٨<span style="font-size:11px;color:#9BB0A7;"> كغ</span></p><p style="font-size:9px;color:#0DC07A;font-weight:700;">▼ ٦ كغ من البداية</p></div><div><p style="font-size:9px;color:#9BB0A7;">الهدف</p><p style="font-size:18px;font-weight:800;color:#0DC07A;">٧٢ كغ</p></div></div><div class="mini-chart" style="height:56px;margin-top:10px;"><div class="chart-bar" style="height:80%;background:#A7F3D0;"></div><div class="chart-bar" style="height:88%;background:#A7F3D0;"></div><div class="chart-bar" style="height:84%;background:#A7F3D0;"></div><div class="chart-bar" style="height:92%;background:#A7F3D0;"></div><div class="chart-bar" style="height:78%;background:#A7F3D0;"></div><div class="chart-bar" style="height:72%;background:#A7F3D0;"></div><div class="chart-bar active" style="height:65%;"></div></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><div class="app-card" style="text-align:center;"><p style="font-size:18px;font-weight:800;color:#FF6B35;">٨٤٪</p><p style="font-size:8px;color:#9BB0A7;">أيام مُلتزم</p></div><div class="app-card" style="text-align:center;"><p style="font-size:18px;font-weight:800;color:#0DC07A;">٢٤</p><p style="font-size:8px;color:#9BB0A7;">سلسلة أيام</p></div><div class="app-card" style="text-align:center;"><p style="font-size:18px;font-weight:800;color:#3B82F6;">١٤.٢</p><p style="font-size:8px;color:#9BB0A7;">كجم مشروب</p></div><div class="app-card" style="text-align:center;"><p style="font-size:18px;font-weight:800;color:#8B5CF6;">٢٨</p><p style="font-size:8px;color:#9BB0A7;">جلسة تمرين</p></div></div>
+      </div>
+    </div></div></div>
+
+    <!-- Screen 5: Habits -->
+    <div class="carousel-slide"><div class="iphone-mockup"><div class="iphone-screen">
+      <div class="app-screen">
+        <div class="app-header-bar"><p style="font-size:13px;font-weight:700;color:#0F1B13;">عادات اليوم</p><div style="font-size:11px;font-weight:800;color:#0DC07A;">٤/٦ ✓</div></div>
+        <div class="app-card"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><p style="font-size:10px;font-weight:700;color:#0F1B13;">إنجاز اليوم</p><p style="font-size:10px;color:#0DC07A;font-weight:700;">٦٧٪</p></div><div class="mini-bar-track" style="height:7px;"><div class="mini-bar-fill" style="width:67%;background:linear-gradient(90deg,#0DC07A,#00C9A7);"></div></div></div>
+        <div class="app-card" style="flex:1;"><p style="font-size:10px;font-weight:700;color:#0F1B13;margin-bottom:6px;">العادات</p>
+          <div class="habit-row"><div><p style="font-weight:700;color:#0F1B13;font-size:10px;">شرب ٨ أكواب ماء</p><p style="font-size:8px;color:#9BB0A7;">🔥 سلسلة ٢٤ يوم</p></div><div class="habit-check done">✓</div></div>
+          <div class="habit-row"><div><p style="font-weight:700;color:#0F1B13;font-size:10px;">تمرين ٣٠ دقيقة</p><p style="font-size:8px;color:#9BB0A7;">🔥 سلسلة ١٢ يوم</p></div><div class="habit-check done">✓</div></div>
+          <div class="habit-row"><div><p style="font-weight:700;color:#0F1B13;font-size:10px;">نوم ٧-٨ ساعات</p><p style="font-size:8px;color:#9BB0A7;">🔥 سلسلة ٧ أيام</p></div><div class="habit-check done">✓</div></div>
+          <div class="habit-row"><div><p style="font-weight:700;color:#0F1B13;font-size:10px;">تسجيل الوجبات</p><p style="font-size:8px;color:#9BB0A7;">🔥 سلسلة ٣٠ يوم</p></div><div class="habit-check done">✓</div></div>
+          <div class="habit-row"><div><p style="font-weight:700;color:#0F1B13;font-size:10px;">مشي ١٠،٠٠٠ خطوة</p><p style="font-size:8px;color:#9BB0A7;">٧،٢٠٠ / ١٠،٠٠٠</p></div><div class="habit-check"></div></div>
+          <div class="habit-row"><div><p style="font-weight:700;color:#0F1B13;font-size:10px;">تأمل ١٠ دقائق</p><p style="font-size:8px;color:#9BB0A7;">لم يُكتمل بعد</p></div><div class="habit-check"></div></div>
+        </div>
+        <div class="app-card" style="background:linear-gradient(135deg,#FF6B35,#FF8C5A);color:white;text-align:center;"><p style="font-size:9px;opacity:.8;">أطول سلسلة</p><p style="font-size:22px;font-weight:800;">🔥 ٣٠ يوماً</p></div>
+      </div>
+    </div></div></div>
+
+  </div>
+
+  <div class="flex justify-center items-center gap-2 mt-6">
+    <button class="carousel-dot active" aria-label="الشاشة الأولى"></button>
+    <button class="carousel-dot" aria-label="الشاشة الثانية"></button>
+    <button class="carousel-dot" aria-label="الشاشة الثالثة"></button>
+    <button class="carousel-dot" aria-label="الشاشة الرابعة"></button>
+    <button class="carousel-dot" aria-label="الشاشة الخامسة"></button>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     6 · HOW IT WORKS
+════════════════════════════════════════════════════════ -->
+<section id="how-it-works" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-5">
+    <p class="section-title reveal">ابدأ في ٣ خطوات فقط</p>
+    <p class="section-subtitle reveal reveal-delay-1">من التسجيل إلى تتبّع أهدافك — بسيط وسريع</p>
+
+    <div class="mt-16 flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
+
+      <div class="flex-1 flex flex-col items-center text-center reveal">
+        <div class="step-number mb-4">١</div>
+        <div class="text-4xl mb-3">👤</div>
+        <h3 class="font-bold text-text-primary text-xl mb-2">أنشئ حسابك</h3>
+        <p class="text-text-secondary text-sm leading-relaxed max-w-xs">سجّل في ثوانٍ وأدخل بياناتك الأساسية: الطول، الوزن، ومستوى النشاط لنحسب احتياجاتك.</p>
+      </div>
+
+      <div class="hidden md:block flex-shrink-0" style="width:60px;height:2px;background:linear-gradient(to left,#A7F3D0,#E8F5EE);"></div>
+      <div class="md:hidden" style="width:2px;height:40px;background:linear-gradient(to bottom,#A7F3D0,#E8F5EE);"></div>
+
+      <div class="flex-1 flex flex-col items-center text-center reveal reveal-delay-1">
+        <div class="step-number mb-4">٢</div>
+        <div class="text-4xl mb-3">🍽️</div>
+        <h3 class="font-bold text-text-primary text-xl mb-2">سجّل وجباتك</h3>
+        <p class="text-text-secondary text-sm leading-relaxed max-w-xs">أضف وجباتك وتمارينك يومياً باستخدام الباركود أو البحث في قاعدة بيانات الأطعمة الضخمة.</p>
+      </div>
+
+      <div class="hidden md:block flex-shrink-0" style="width:60px;height:2px;background:linear-gradient(to left,#A7F3D0,#E8F5EE);"></div>
+      <div class="md:hidden" style="width:2px;height:40px;background:linear-gradient(to bottom,#A7F3D0,#E8F5EE);"></div>
+
+      <div class="flex-1 flex flex-col items-center text-center reveal reveal-delay-2">
+        <div class="step-number mb-4">٣</div>
+        <div class="text-4xl mb-3">📈</div>
+        <h3 class="font-bold text-text-primary text-xl mb-2">تابع تقدّمك</h3>
+        <p class="text-text-secondary text-sm leading-relaxed max-w-xs">شاهد تقدّمك يومياً وأسبوعياً مع رسوم بيانية وتوصيات ذكية تُساعدك على الوصول لهدفك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     7 · TESTIMONIALS
+════════════════════════════════════════════════════════ -->
+<section id="testimonials" class="py-24 bg-surface">
+  <div class="max-w-7xl mx-auto px-5">
+    <p class="section-title reveal">يتحدّثون عن تجربتهم</p>
+    <p class="section-subtitle reveal reveal-delay-1">آلاف المستخدمين يشاركون رحلتهم الصحية مع سوا فيت كل يوم</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
+
+      <div class="testimonial-card reveal">
+        <div class="flex text-yellow-400 text-base mb-4">★★★★★</div>
+        <p class="text-text-secondary text-sm leading-relaxed mb-5">"كنت أجرّب كثيراً من التطبيقات لكن ما وجدت واحداً باللغة العربية ومتكاملاً مثل سوا فيت. خسّيت ٨ كيلو في شهرين بفضل تتبّع السعرات. التطبيق سهّل عليّ كل شيء."</p>
+        <div class="flex items-center gap-3">
+          <div class="avatar-circle">أ</div>
+          <div><p class="font-bold text-text-primary text-sm">أحمد محمد</p><p class="text-text-muted text-xs">الرياض، السعودية</p></div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="flex text-yellow-400 text-base mb-4">★★★★★</div>
+        <p class="text-text-secondary text-sm leading-relaxed mb-5">"بعد الولادة كنت محتاجة أتابع تغذيتي بشكل دقيق. سوا فيت ساعدني أرجع لوزني المثالي خلال ٦ أشهر. ميزة العادات الصحية رائعة جداً، تحفّزني كل يوم."</p>
+        <div class="flex items-center gap-3">
+          <div class="avatar-circle" style="background:linear-gradient(135deg,#FF6B35,#FF8C5A);">ف</div>
+          <div><p class="font-bold text-text-primary text-sm">فاطمة العلي</p><p class="text-text-muted text-xs">دبي، الإمارات</p></div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="flex text-yellow-400 text-base mb-4">★★★★★</div>
+        <p class="text-text-secondary text-sm leading-relaxed mb-5">"أنا مدرّب رياضي وأنصح جميع عملائي باستخدام سوا فيت. قاعدة بيانات الأطعمة العربية شاملة جداً، وتتبّع البروتين والكربوهيدرات دقيق للغاية. تطبيق احترافي."</p>
+        <div class="flex items-center gap-3">
+          <div class="avatar-circle" style="background:linear-gradient(135deg,#3B82F6,#6366F1);">م</div>
+          <div><p class="font-bold text-text-primary text-sm">محمد سعد</p><p class="text-text-muted text-xs">القاهرة، مصر</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="bg-white rounded-2xl p-5 text-center border border-border reveal"><p class="font-extrabold text-2xl text-primary">٩٢٪</p><p class="text-text-muted text-xs mt-1">يوصون بالتطبيق</p></div>
+      <div class="bg-white rounded-2xl p-5 text-center border border-border reveal reveal-delay-1"><p class="font-extrabold text-2xl text-primary">٤.٩</p><p class="text-text-muted text-xs mt-1">تقييم App Store</p></div>
+      <div class="bg-white rounded-2xl p-5 text-center border border-border reveal reveal-delay-2"><p class="font-extrabold text-2xl text-accent">+١٠م</p><p class="text-text-muted text-xs mt-1">تحميل</p></div>
+      <div class="bg-white rounded-2xl p-5 text-center border border-border reveal reveal-delay-3"><p class="font-extrabold text-2xl text-primary">٢٤/٧</p><p class="text-text-muted text-xs mt-1">دعم مستمر</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     8 · DOWNLOAD CTA
+════════════════════════════════════════════════════════ -->
+<section id="download" class="cta-section py-24">
+  <div class="max-w-4xl mx-auto px-5 text-center relative z-10">
+
+    <div class="inline-flex items-center gap-2 border text-xs font-semibold px-4 py-1.5 rounded-full mb-8 reveal" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.9);">
+      <span class="text-primary">✦</span> مجاناً — بدون اشتراك مدفوع
+    </div>
+
+    <h2 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-6 reveal reveal-delay-1">
+      ابدأ رحلتك اليوم<br/>
+      <span class="text-primary">مجاناً</span>
+    </h2>
+
+    <p class="text-lg leading-relaxed mb-10 max-w-xl mx-auto reveal reveal-delay-2" style="color:rgba(255,255,255,0.7);">
+      انضمّ إلى أكثر من ٥٠٠ ألف شخص يحوّلون حياتهم نحو الأفضل مع سوا فيت
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 mb-12 reveal reveal-delay-3">
+      <a href="#" class="store-btn" aria-label="حمّل من App Store">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div><p class="text-xs leading-none mb-0.5" style="color:rgba(255,255,255,0.6);">حمّل من</p><p class="font-bold text-white text-sm leading-none">App Store</p></div>
+      </a>
+      <a href="#" class="store-btn" aria-label="حمّل من Google Play">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3.5 22.5 14 12 3.5 1.5c-.3.2-.5.5-.5.9v19.2c0 .4.2.7.5.9z" fill="#4285F4"/><path d="M21 12 17.5 10 14 12l3.5 2L21 12z" fill="#FBBC04"/><path d="M14 12 3.5 1.5l11.2 6.5L14 12z" fill="#EA4335"/><path d="M14 12l.7 4L3.5 22.5 14 12z" fill="#34A853"/></svg>
+        <div><p class="text-xs leading-none mb-0.5" style="color:rgba(255,255,255,0.6);">حمّل من</p><p class="font-bold text-white text-sm leading-none">Google Play</p></div>
+      </a>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-6 reveal reveal-delay-4">
+      <div class="trust-item"><div class="trust-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0DC07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>مجاني بالكامل</div>
+      <div class="trust-item"><div class="trust-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0DC07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>بدون إعلانات مزعجة</div>
+      <div class="trust-item"><div class="trust-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0DC07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>خصوصية تامة</div>
+      <div class="trust-item"><div class="trust-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0DC07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>يعمل بدون إنترنت</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     9 · FOOTER
+════════════════════════════════════════════════════════ -->
+<footer class="bg-text-primary text-white py-14">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+      <div class="md:col-span-2">
+        <a href="/" class="flex items-center gap-2.5 no-underline mb-4">
+          <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C6.5 2 4 4.5 4 8c0 5.5 5.5 10.5 6 10.8.5-.3 6-5.3 6-10.8 0-3.5-2.5-6-6-6z" fill="white"/><path d="M10 6v8M8 9l2-2.5L12 9" stroke="#0DC07A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="text-xl font-bold">سوا فيت</span>
+        </a>
+        <p class="text-text-muted text-sm leading-relaxed max-w-sm">تطبيق صحي متكامل يُساعدك على تتبّع سعراتك وبناء عادات صحية مستدامة — لأن الصحة رحلة تستحق المرافقة.</p>
+        <div class="flex gap-3 mt-5">
+          <a href="#" class="social-btn" aria-label="تويتر"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" class="social-btn" aria-label="إنستقرام"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" class="social-btn" aria-label="يوتيوب"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-1.9-1.1-2.7c-1.1-1.1-2.3-1.1-2.8-1.2C16.4 3 12 3 12 3s-4.4 0-7.1.1c-.5.1-1.7.1-2.8 1.2C1.3 5.1 1 7 1 7S.7 9.2.7 11.3v2c0 2.2.3 4.3.3 4.3s.3 1.9 1.1 2.7c1.1 1.1 2.5 1 3.1 1.1C7.1 21.6 12 21.6 12 21.6s4.4 0 7.1-.2c.5-.1 1.7-.1 2.8-1.2.8-.8 1.1-2.7 1.1-2.7s.3-2.2.3-4.3v-2C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l7.6 3.6-7.6 3.5z"/></svg></a>
+          <a href="#" class="social-btn" aria-label="تيك توك"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.03a8.16 8.16 0 004.77 1.52V7.1a4.85 4.85 0 01-1-.41z"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white text-sm mb-4">التطبيق</h4>
+        <ul class="space-y-3 list-none p-0">
+          <li><a href="#features"     class="footer-link">المميّزات</a></li>
+          <li><a href="#screenshots"  class="footer-link">الواجهة</a></li>
+          <li><a href="#how-it-works" class="footer-link">كيف يعمل</a></li>
+          <li><a href="#download"     class="footer-link">تحميل التطبيق</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white text-sm mb-4">الشركة</h4>
+        <ul class="space-y-3 list-none p-0">
+          <li><a href="#" class="footer-link">من نحن</a></li>
+          <li><a href="#" class="footer-link">سياسة الخصوصية</a></li>
+          <li><a href="#" class="footer-link">شروط الاستخدام</a></li>
+          <li><a href="#" class="footer-link">تواصل معنا</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color:rgba(255,255,255,0.1);">
+      <p class="text-text-muted text-sm">© ٢٠٢٦ سوا فيت. جميع الحقوق محفوظة.</p>
+      <div class="flex items-center gap-2 text-text-muted text-sm">
+        <span>صُنع بـ</span><span class="text-primary text-base">♥</span><span>للمجتمع العربي</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ── Arabic-Indic numerals ─────────────────────────────────────
+const toArabicIndic = n => String(Math.round(n)).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
+
+function formatCount(n, suffix) {
+  if (n >= 1_000_000) return toArabicIndic(n / 1_000_000) + 'م' + suffix
+  if (n >= 1_000)     return toArabicIndic(Math.floor(n / 1000)) + '،٠٠٠' + suffix
+  return toArabicIndic(n) + suffix
+}
+
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3)
+
+// ── Reduced Motion ────────────────────────────────────────────
+function initReducedMotion() {
+  const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (rm) document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'))
+  return rm
+}
+
+// ── Scroll Reveal ─────────────────────────────────────────────
+function initScrollReveal(rm) {
+  if (rm) return
+  const els = document.querySelectorAll('.reveal')
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target) } })
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+  els.forEach(el => io.observe(el))
+}
+
+// ── Counters ──────────────────────────────────────────────────
+function initCounters() {
+  const counters = document.querySelectorAll('[data-count]')
+  if (!('IntersectionObserver' in window)) {
+    counters.forEach(el => { el.textContent = formatCount(+el.dataset.count, el.dataset.suffix || '') }); return
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return
+      const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix || '', t0 = performance.now()
+      const tick = now => {
+        const p = Math.min((now - t0) / 2000, 1)
+        el.textContent = formatCount(Math.round(easeOutCubic(p) * target), suffix)
+        if (p < 1) requestAnimationFrame(tick)
+      }
+      requestAnimationFrame(tick); io.unobserve(el)
+    })
+  }, { threshold: 0.6 })
+  counters.forEach(el => io.observe(el))
+}
+
+// ── Carousel ──────────────────────────────────────────────────
+function initCarousel() {
+  const track = document.querySelector('.carousel-track')
+  const dots  = document.querySelectorAll('.carousel-dot')
+  if (!track || !dots.length) return
+
+  let dragging = false, startX = 0, scrollStart = 0, idx = 0
+  const count = dots.length
+  const sw = () => { const s = track.querySelector('.carousel-slide'); return s ? s.offsetWidth + 24 : 0 }
+
+  const setDots = i => dots.forEach((d, j) => {
+    const a = j === i
+    d.classList.toggle('active', a)
+    d.style.background = a ? '#0DC07A' : '#E8F5EE'
+    d.style.width = a ? '24px' : '8px'
+  })
+
+  const goTo = i => {
+    idx = Math.max(0, Math.min(i, count - 1))
+    track.scrollTo({ left: idx * sw(), behavior: 'smooth' })
+    setDots(idx)
+  }
+
+  dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)))
+
+  track.addEventListener('mousedown', e => { dragging = true; startX = e.pageX; scrollStart = track.scrollLeft; track.style.scrollBehavior = 'auto'; track.classList.add('grabbing') })
+  window.addEventListener('mousemove', e => { if (!dragging) return; e.preventDefault(); track.scrollLeft = scrollStart - (e.pageX - startX) })
+  window.addEventListener('mouseup', e => {
+    if (!dragging) return; dragging = false; track.style.scrollBehavior = 'smooth'; track.classList.remove('grabbing')
+    const dx = e.pageX - startX
+    if (Math.abs(dx) > sw() / 4) goTo(dx > 0 ? idx - 1 : idx + 1); else goTo(idx)
+  })
+
+  let tx = 0
+  track.addEventListener('touchstart', e => { tx = e.touches[0].pageX; track.style.scrollBehavior = 'auto' }, { passive: true })
+  track.addEventListener('touchend', e => {
+    track.style.scrollBehavior = 'smooth'
+    const dx = e.changedTouches[0].pageX - tx
+    if (Math.abs(dx) > sw() / 4) goTo(dx > 0 ? idx - 1 : idx + 1)
+  }, { passive: true })
+
+  let st
+  track.addEventListener('scroll', () => {
+    clearTimeout(st); st = setTimeout(() => {
+      const s = sw(); if (!s) return
+      const ni = Math.max(0, Math.min(Math.round(track.scrollLeft / s), count - 1))
+      if (ni !== idx) { idx = ni; setDots(idx) }
+    }, 60)
+  }, { passive: true })
+
+  setTimeout(() => goTo(0), 120)
+}
+
+// ── Mobile Nav ────────────────────────────────────────────────
+function initMobileNav() {
+  const btn   = document.getElementById('menu-toggle')
+  const menu  = document.getElementById('mobile-menu')
+  const nav   = document.getElementById('navbar')
+  if (!btn || !menu) return
+
+  let open = false
+  const bars = btn.querySelectorAll('.hamburger-bar')
+  const close = () => { open = false; menu.style.maxHeight = '0'; bars[0].style.transform = bars[2].style.transform = ''; bars[1].style.opacity = ''; btn.setAttribute('aria-expanded','false') }
+  const expand = () => { open = true; menu.style.maxHeight = menu.scrollHeight + 'px'; bars[0].style.transform = 'rotate(45deg) translate(5px,5px)'; bars[1].style.opacity = '0'; bars[2].style.transform = 'rotate(-45deg) translate(5px,-5px)'; btn.setAttribute('aria-expanded','true') }
+
+  btn.addEventListener('click', () => open ? close() : expand())
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close))
+
+  const onScroll = () => nav.classList.toggle('nav-scrolled', window.scrollY > 20)
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll()
+}
+
+// ── Parallax ──────────────────────────────────────────────────
+function initParallax(rm) {
+  if (rm) return
+  const blobs = document.querySelectorAll('.hero-blob')
+  if (!blobs.length) return
+  let tick = false
+  window.addEventListener('scroll', () => {
+    if (tick) return; tick = true
+    requestAnimationFrame(() => {
+      const y = window.scrollY
+      blobs.forEach((b, i) => { b.style.transform = `translateY(${y * (i === 0 ? 0.25 : 0.4) * (i === 0 ? 1 : -1)}px)` })
+      tick = false
+    })
+  }, { passive: true })
+}
+
+// ── Card Tilt ─────────────────────────────────────────────────
+function initCardTilt() {
+  if (window.matchMedia('(hover: none)').matches) return
+  document.querySelectorAll('.feature-card').forEach(c => {
+    c.addEventListener('mouseenter', () => { c.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease' })
+    c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect()
+      c.style.transform = `perspective(800px) rotateX(${((e.clientY - r.top - r.height/2)/(r.height/2))*-6}deg) rotateY(${((e.clientX - r.left - r.width/2)/(r.width/2))*6}deg) translateY(-4px)`
+    })
+    c.addEventListener('mouseleave', () => { c.style.transition = 'transform 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease'; c.style.transform = '' })
+  })
+}
+
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const rm = initReducedMotion()
+  initScrollReveal(rm)
+  initCounters()
+  initCarousel()
+  initMobileNav()
+  initParallax(rm)
+  initCardTilt()
+})
+</script>
+
+</body>
+</html>
